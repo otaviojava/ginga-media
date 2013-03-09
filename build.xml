@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Ginga-J_lesson_1" default="run" basedir=".">
+    <property name="xlet.entrypoint" value="SampleXlet"/>
+    <description>Builds, tests, and runs the project Ginga-J_lesson_1.</description>
+    <target name="init" depends="compile"/>
+    
+    <target name="compile">
+        <mkdir dir="build"/>
+        <javac destdir="build" target="1.3" source="1.3">
+            <bootclasspath>
+                <filelist>
+                    <file name="/usr/bin/AstroBox/lib/basis.jar"/>
+                </filelist>
+            </bootclasspath>
+            <classpath>
+                <filelist>
+                    <file name="/usr/bin/AstroBox/lib/charsets.jar"/>
+                    <file name="/usr/bin/AstroBox/lib/jce.jar"/>
+                    <file name="/usr/bin/AstroBox/lib/jsse-cdc.jar"/>
+                    <file name="/usr/bin/AstroBox/localedata.jar"/>
+                    <file name="/usr/bin/AstroBox/lib/sunrsasign.jar"/>
+                    <file name="/usr/bin/AstroBox/bin/java/astro.jar"/>
+                </filelist>  
+            </classpath>
+            <src path="src"/>
+        </javac>
+    </target>
+    
+    <target depends="init,compile" description="Deploys Xlet files into the Ginga-J emulator" name="deploy">
+        <delete>
+            <fileset dir="/usr/bin/AstroBox/bin/app/"/>    
+        </delete>
+        <copy todir="/usr/bin/AstroBox/bin/app">
+           <fileset dir="build/"/>    
+        </copy>
+        <copy todir="/usr/bin/AstroBox/bin/app">
+           <fileset dir="src/" excludes="*.java"/>    
+        </copy>
+    </target>
+
+    <target depends="init,compile" description="Packs Xlet into zip file" name="pack">
+        <zip zipfile="/tmp/Ginga-J_lesson_1.zip">
+            <zipfileset dir="build/" />
+            <zipfileset dir="src/" excludes="*.java"/>    
+        </zip>
+    </target>
+
+    <target depends="init" description="Stops Ginga-J emulator" name="stop">
+        <!--<exec executable="kill">
+		<arg value="-9" />
+		<arg value=" $(" />
+		<arg value=" ps" />
+		<arg value=" -af" />
+		<arg value=" |" />
+		<arg value=" grep" />
+		<arg value=" platEmul | grep" />
+		<arg value=" -v" />
+		<arg value=" grep | awk" />
+		<arg value=" '{" />
+		<arg value=" FS=&quot; &quot;" />
+		<arg value=" }" />
+		<arg value=" {" />
+		<arg value=" print" />
+		<arg value=" $2" />
+		<arg value=" }' )" />
+	</exec> -->
+    </target>
+
+    <target depends="init,compile,stop,deploy,pack,clean" description="Run Xlet in Ginga-J emulator" name="run">
+        <exec executable="./sitools-java-config">
+            <arg value="${xlet.entrypoint}"/>
+        </exec>
+        <exec executable="/usr/bin/AstroBox-emul" /> 
+    </target>
+
+    <target depends="init" description="Cleans the build" name="clean">
+        <delete dir="build"/>
+        <delete dir="build" followsymlinks="false" includeemptydirs="true"/>
+    </target>
+</project>
