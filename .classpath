@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Astrobox"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/BootAstrobox"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Astrobox"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
