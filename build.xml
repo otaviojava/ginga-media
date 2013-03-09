@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Ginga-J_lesson_1" default="run" basedir=".">
-    <property name="xlet.entrypoint" value="SampleXlet"/>
+    <property name="xlet.entrypoint" value="br.com.globalcode.ginga.EntryPointXlet"/>
     <description>Builds, tests, and runs the project Ginga-J_lesson_1.</description>
     <target name="init" depends="compile"/>
     
@@ -67,7 +67,7 @@
     </target>
 
     <target depends="init,compile,stop,deploy,pack,clean" description="Run Xlet in Ginga-J emulator" name="run">
-        <exec executable="./sitools-java-config">
+        <exec executable="${user.home}/sitools-java-config">
             <arg value="${xlet.entrypoint}"/>
         </exec>
         <exec executable="/usr/bin/AstroBox-emul" /> 
