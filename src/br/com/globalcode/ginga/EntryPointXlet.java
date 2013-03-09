@@ -28,7 +28,19 @@ public class EntryPointXlet implements Xlet {
 
 	public void startXlet() throws XletStateChangeException {
 		Form formulario = new Form("Ginga-media");
-		
+		StringBuffer json=new StringBuffer();
+		json.append("'itens': { ");
+		json.append(" { ");
+		json.append("	imagem: 'http://www.flickr.com/photos/maikondrums/5981195125/', ");
+		json.append("	descricao: 'Criação da Logo LEVEL UP', ");
+		json.append("	nome: 'pera' ");		
+		json.append(" }, ");
+		json.append(" { ");
+		json.append("	imagem: 'http://www.flickr.com/photos/maikondrums/5981195125/', ");
+		json.append("	descricao: 'Criação da Logo LEVEL UP', ");
+		json.append("  nome: 'pera' ");		
+		json.append(" } ");
+		json.append(" }; ");
 		
 		
 		formulario.show();
