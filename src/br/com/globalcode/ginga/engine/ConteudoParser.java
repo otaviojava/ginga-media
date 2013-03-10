@@ -31,6 +31,10 @@ private static final String URL_BASE="http://otaviojava.com.br/ginga-media-serve
  */
 public abstract String getResource();
 
+private static final int TAMANHO_MINIMO=5;
+public List parse(String queryString) throws IOException, JSONException {
+	return parse(queryString, TAMANHO_MINIMO);
+}
 
 	/**
 	 * Realiza o parse do arquivo e gera uma lista de conteúdos.
@@ -43,12 +47,16 @@ public abstract String getResource();
 	 * @throws JSONException
 	 *             caso ocorra algum erro durante o parse do JSON
 	 */
-	public List parse(String queryString) throws IOException, JSONException {
+	public List parse(String queryString,int tamanho) throws IOException, JSONException {
 		// Recupera os itens da web service
 		StringBuffer urlString=new StringBuffer();
 		urlString.append(URL_BASE);
 		urlString.append(getResource());
 		urlString.append(queryString);
+		if(tamanho!=0){
+			urlString.append("?quantidade=");
+			urlString.append(tamanho);
+		}
 		String resposta = URLFetcher.getURLContent(urlString.toString());
 
 		List conteudos = new ArrayList();

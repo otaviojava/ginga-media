@@ -8,4 +8,5 @@ import org.json.JSONException;
 public interface Parser {
 
 	 List parse(String queryString) throws IOException, JSONException;
+	 List parse(String queryString, int tamanho) throws IOException, JSONException;
 }
