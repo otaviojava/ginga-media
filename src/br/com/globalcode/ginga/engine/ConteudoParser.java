@@ -18,12 +18,24 @@ import br.com.globalcode.ginga.model.Conteudo;
  * @author newton.beck
  * 
  */
-public class ConteudoParser {
+abstract class ConteudoParser implements Parser{
+	
+/**
+ * URL base para os serviços do twitter	
+ */
+private static final String URL_BASE="http://otaviojava.com.br/ginga-media-server/resources/";
+
+/**
+ * Retorna o base resource que será utilizada
+ * @return o recurso que será utilizado
+ */
+public abstract String getResource();
+
 
 	/**
 	 * Realiza o parse do arquivo e gera uma lista de conteúdos.
 	 * 
-	 * @param url
+	 * @param hashTag
 	 *            URL que será requisitada
 	 * @return lista de conteúdos do arquivo
 	 * @throws IOException
@@ -31,9 +43,13 @@ public class ConteudoParser {
 	 * @throws JSONException
 	 *             caso ocorra algum erro durante o parse do JSON
 	 */
-	public static List parse(String url) throws IOException, JSONException {
+	public List parse(String queryString) throws IOException, JSONException {
 		// Recupera os itens da web service
-		String resposta = URLFetcher.getURLContent(url);
+		StringBuffer urlString=new StringBuffer();
+		urlString.append(URL_BASE);
+		urlString.append(getResource());
+		urlString.append(queryString);
+		String resposta = URLFetcher.getURLContent(urlString.toString());
 
 		List conteudos = new ArrayList();
 
